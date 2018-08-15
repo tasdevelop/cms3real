@@ -425,7 +425,13 @@ class Jemaat extends CI_Controller {
 		}
 		$this->load->view('jemaat/'.$form,$data);
 	}
-
+	function cek(){
+		$json = $_POST['cek'];
+		$json_string = stripslashes($json);
+		$data = json_decode($json_string, true);
+		echo "<pre>";
+		print_r($data);
+	}
 	function crud(){
 		@$oper=@$_POST['oper'];
 	    @$member_key=@$_POST['member_key'];

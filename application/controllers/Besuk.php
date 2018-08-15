@@ -140,6 +140,7 @@ class Besuk extends CI_Controller {
 				$del = '<button id='.$row->member_key.' class="icon-remove" onclick="delBesuk(\'del\','.$row->besukid.',\''.$row->member_key.'\');" style="width:16px;height:16px;border:0"></button>';
 			}
 			$row->aksi =$view.$edit.$del;
+			$row->besukdate=$row->besukdate=="00-00-0000"?"-":$row->besukdate;
 		}
 		$response = new stdClass;
 		$response->total=$total;
@@ -234,7 +235,7 @@ class Besuk extends CI_Controller {
 	    @$besukid=@$_POST['besukid'];
 	    @$besukdate = $_POST['besukdate'];
 	    @$exp1 = explode('/',$besukdate);
-		@$besukdate = $exp1[2]."-".$exp1[1]."-".$exp1[0]." ".date("H:i:s");
+		@$besukdate = $exp1[2]."-".$exp1[0]."-".$exp1[1]." ".date("H:i:s");
 		@$data = array(
 			'member_key' => @$_POST['member_key'],
 			'besukdate' => @$besukdate,

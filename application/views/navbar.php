@@ -34,6 +34,7 @@
                 $n++;
                 $x = print_recursive_list($data['child']);
                 // print_r($x);
+                $menuexe = $data['menuexe']=="#"?'#':base_url().$data['menuexe'];
                 if($x!=""){
                     $class = "easyui-menubutton";
                 }
@@ -41,7 +42,7 @@
                     $class = "easyui-linkbutton";
                 }
                 ?>
-                    <a href="<?php echo base_url();?><?php echo $data['menuexe'] ?>" class="<?php echo $class; ?>" data-options="plain:true, menu:'#<?php echo $n?>'" iconCls="<?php echo $data['menuicon'] ?>"><?php echo $data['menuname'] ?>
+                    <a href="<?= $menuexe ?>" class="<?php echo $class; ?>" data-options="plain:true, menu:'#<?php echo $n?>'" iconCls="<?php echo $data['menuicon'] ?>"><?php echo $data['menuname'] ?>
                         <div id="<?php echo $n?>">
                             <!-- diganti -->
                             <?php echo $x; ?>
@@ -51,7 +52,7 @@
             }
         ?>
         <div class="indukJam" id="easyui-menubutton">
-                            <?php echo date("d M Y"); ?> / <span id="tempatjam"></span>
-                        </div>
+            <?php echo date("d M Y"); ?> / <span id="tempatjam"></span>
+        </div>
     </div>
     <br>

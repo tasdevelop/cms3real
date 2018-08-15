@@ -48,8 +48,13 @@ $(document).ready(function(){
 		DATE_FORMAT(baptismdate,'%d-%m-%Y') baptismdate,
 		DATE_FORMAT(modifiedon,'%d-%m-%Y %T') modifiedon FROM tblmember WHERE member_key=".$member_key." LIMIT 0,1");
     // echo $query;
-	@$datarow=queryCustom($query);
-
+    @$datarow=queryCustom($query);
+    @$exp1 = explode('-',$datarow->dob);
+    @$dob = $exp1[1]."/".$exp1[0]."/".$exp1[2];
+    @$dob = @$dob == "00/00/0000"?"":@$dob;
+    @$exp2 = explode('-',$datarow->baptismdate);
+    @$baptismdate = $exp2[1]."/".$exp2[0]."/".$exp2[2];
+    @$baptismdate= @$baptismdate == "00/00/0000"?"":@$baptismdate;
 ?>
   <h3 class="noMargin">Jemaat Informasi</h3>
     <div class="row">
@@ -125,7 +130,7 @@ $(document).ready(function(){
                 <input name="pob"  labelPosition="top" class="easyui-textbox" required="" style="width:100%"    value="<?= @$datarow->pob ?>" label="pob:">
             </div>
             <div style="margin-bottom:10px">
-                <input name="dob"  labelPosition="top" class="easyui-datebox" required="" style="width:100%"    value="<?= @$datarow->dob ?>" label="dob:">
+                <input name="dob"  labelPosition="top" class="easyui-datebox" required="" style="width:100%"    value="<?= @$dob ?>" label="dob:">
             </div>
             <div style="margin-bottom:10px">
                <select id="bloodid" name="bloodid"  labelPosition="top" class="easyui-combobox" label="bloodid:" style="width:100%;">
@@ -233,7 +238,7 @@ $(document).ready(function(){
                 <input type="checkbox" value="1" id="baptis" name="baptis" <?php if(@$datarow->baptis==1){echo "checked";} ?>></td>
             </div>
               <div style="margin-bottom:10px">
-                <input name="baptismdate"  labelPosition="top" class="easyui-datebox" required="" style="width:100%"    value="<?= @$datarow->baptismdate ?>" label="baptismdate:">
+                <input name="baptismdate"  labelPosition="top" class="easyui-datebox" required="" style="width:100%"    value="<?= @$baptismdate ?>" label="baptismdate:">
             </div>
              <div style="margin-bottom:10px">
                 <input name="remark"  labelPosition="top" class="easyui-textbox" required="" style="width:100%"    value="<?= @$datarow->remark ?>" label="remark:">

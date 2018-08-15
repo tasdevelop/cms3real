@@ -106,7 +106,19 @@
                 handler:function(){
                     var checkedRows = $('#dgJemaat').datagrid('getChecked');
                     console.log(checkedRows);
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url:"<?php echo base_url()?>jemaat/cek",
+                    //     enctype: 'multipart/form-data',
+                    //     data : {cek:JSON.stringify(checkedRows)},
+                    //     dataType: "json",
+                    //     async: true,
+                    //     success: function(data) {
+                    //         console.log(data);
+                    //     }
+                    // })
                 }
+            
             }]
         });
         dg.datagrid('enableFilter', [{
@@ -435,6 +447,7 @@
     function remoteFilter(){
         $('#dgJemaat').datagrid('removeFilterRule');
         $('#dgJemaat').datagrid('doFilter');
+      
     }
 </script>
 <div class="easyui-tabs" style="height:auto">

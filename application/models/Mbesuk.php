@@ -13,7 +13,9 @@ Class Mbesuk extends CI_Model{
 		return $sql;
 	}
 	function getM($where, $sidx, $sord, $limit, $start){
-		$query = "select * from tblbesuk  " . $where . " ORDER BY $sidx $sord LIMIT $start , $limit";
+		$query = "select *,
+		DATE_FORMAT(besukdate,'%d-%m-%Y') besukdate,
+		DATE_FORMAT(modifiedon,'%d-%m-%Y %T') modifiedon from tblbesuk  " . $where . " ORDER BY $sidx $sord LIMIT $start , $limit";
 		// echo $query;
 		return $this->db->query($query);
 	}

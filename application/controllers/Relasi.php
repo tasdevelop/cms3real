@@ -135,7 +135,7 @@ class Relasi extends CI_Controller {
 			else{
 			    $rel = "disabled";
 			}
-
+ 
 			$member_key = $row->member_key;
 			$pembesukdari="";
 			$remark="";
@@ -157,7 +157,9 @@ class Relasi extends CI_Controller {
 			$row->tglbesukterakhir = $besukdate;
 			$row->pembesukdari = $pembesukdari;
 			$row->remark = $remark;
-
+			$row->dob=$row->dob!="00-00-0000"?$row->dob:'-';
+			$row->baptismdate=$row->baptismdate!="00-00-0000"?$row->baptismdate:'-';
+			$row->umur = $row->umur==Date("Y")?'-':$row->umur;
 
 			$row->aksi =$view.$edit.$del;
 		}
