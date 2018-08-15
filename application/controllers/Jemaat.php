@@ -200,6 +200,7 @@ class Jemaat extends CI_Controller {
 			$row->dob=$row->dob!="00-00-0000"?$row->dob:'-';
 			$row->baptismdate=$row->baptismdate!="00-00-0000"?$row->baptismdate:'-';
 			$row->umur = $row->umur==Date("Y")?'-':$row->umur;
+			$row->relationno = $row->relationno==0?"-":$row->relationno;
 
 
 			// $select= "<spans style='float:left;margin-top:3px;margin-left:4px;'>
@@ -425,12 +426,45 @@ class Jemaat extends CI_Controller {
 		}
 		$this->load->view('jemaat/'.$form,$data);
 	}
-	function cek(){
-		$json = $_POST['cek'];
-		$json_string = stripslashes($json);
-		$data = json_decode($json_string, true);
-		echo "<pre>";
-		print_r($data);
+	function makeRelation(){
+		$json = $_POST['dataMember'];
+		$data = json_decode($json);
+		$det="";
+		$lastNum = $this->db->query("select relationno from tblmember order by relationno desc")->result();
+		$lastNumber= count($lastNum)>0?$lastNum[0]->relationno+1:1;
+		$gagal=0;
+		foreach($data as $d){
+			$sql="update tblmember set relationno = ".$lastNumber." where member_key= ".$d->member_key;
+			$check = $this->db->query($sql);
+			if(!$check){
+				$gagal=1;
+			}
+		}
+		$hasil = array(
+			'status' => $gagal==0?"Sukses":"Gagal"
+		);
+		return json_encode($hasil);
+	}
+	function konversi(){
+		// $data = $this->db->query("select relationno from tblmember where relationno!='' group by relationno");
+		// $no=1;
+		// foreach($data->result() as $d){
+			
+		// 	$members = $this->db->query("select * from tblmember where relationno='".$d->relationno."'")->result();
+		// 	// foreach($members as $member){
+		// 	// 	$id = $member->member_key;
+		// 	// 	$sql="update tblmember set relationno='".$no."' where member_key = ".$id;
+		// 	// 	$check = $this->db->query($sql);
+		// 	// 	if($check){
+		// 	// 		echo "berhasil";
+		// 	// 	}else{
+		// 	// 		echo "gagal";
+		// 	// 	}
+		// 	// }
+		// 	echo "<br>";
+		// 	echo $no."=".$d->relationno."=".count($members)."<br>";
+		// 	$no++;
+		// }
 	}
 	function crud(){
 		@$oper=@$_POST['oper'];

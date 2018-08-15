@@ -105,18 +105,34 @@
                 iconCls:'icon-mini-add', 
                 handler:function(){
                     var checkedRows = $('#dgJemaat').datagrid('getChecked');
-                    console.log(checkedRows);
-                    // $.ajax({
-                    //     type: "POST",
-                    //     url:"<?php echo base_url()?>jemaat/cek",
-                    //     enctype: 'multipart/form-data',
-                    //     data : {cek:JSON.stringify(checkedRows)},
-                    //     dataType: "json",
-                    //     async: true,
-                    //     success: function(data) {
-                    //         console.log(data);
-                    //     }
-                    // })
+                    var check = 0;
+                    $.each(checkedRows, function( index, value ) {
+                        if(value.relationno !="-"){
+                            check++;
+                        }
+                    });
+                    if(check>0){
+                        $.messager.confirm('Confirm','Yakin ingin membuat relasi?Karena ada member yang sudah memiliki relasi',function(r){
+                            if (r){
+                                $.ajax({
+                                    type: "POST",
+                                    url:"<?php echo base_url()?>jemaat/makeRelation",
+                                    enctype: 'multipart/form-data',
+                                    data : {
+                                        dataMember:JSON.stringify(checkedRows)
+                                    },dataType: "html",
+                                    async: true,
+                                    success: function(data) {
+                                        $("#dgJemaat").datagrid('reload');
+                                        $("#dgRelasi").datagrid('reload');
+                                    },error:function(err){
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        });
+                    }   
+                  
                 }
             
             }]
@@ -413,6 +429,8 @@
 
     }
     function relasi(relationno){
+        relationno=relationno=="-"?"":relationno;
+
         page="<?php echo base_url()?>relasi/index2/?relationno="+relationno;
         $('#datarelasi').html('<img src="<?php echo base_url()?>libraries/img/loading.gif">').load(page);
     }

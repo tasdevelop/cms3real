@@ -172,7 +172,7 @@ $(document).ready(function(){
             </select>
             </div>
             <div style="margin-bottom:10px">
-                <select id="rayonid" name="rayonid" class="easyui-combobox" labelPosition="top" label="persekutuanid:" style="width:100%;">
+                <select id="rayonid" name="rayonid" class="easyui-combobox" labelPosition="top" label="rayonid:" style="width:100%;">
                 <option value=""></option>
                 <?php
                     foreach ($sqlrayon as $rowform) {
@@ -184,7 +184,7 @@ $(document).ready(function(){
             </select>
             </div>
             <div style="margin-bottom:10px">
-                <select id="statusid" name="statusid"  labelPosition="top" class="easyui-combobox" label="persekutuanid:" style="width:100%;">
+                <select id="statusid" name="statusid"  labelPosition="top" class="easyui-combobox" label="statusid:" style="width:100%;">
                     <option value=""></option>
                     <?php
                         foreach ($sqlstatusid as $rowform) {
